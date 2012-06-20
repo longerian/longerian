@@ -2,8 +2,6 @@ package so.mp3.app.fragment;
 
 import java.util.List;
 
-import org.w3c.dom.Node;
-
 import so.mp3.app.Host;
 import so.mp3.app.widget.Mp3Adapter;
 import so.mp3.http.SougouClient;
@@ -28,7 +26,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class SearchResultListFragment extends SherlockFragment {
 

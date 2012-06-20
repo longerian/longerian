@@ -20,10 +20,12 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
 
 public class Mp3playerActivity extends SherlockActivity implements Observer, Host {
-    /** Called when the activity is first created. */
+	
+	public static final String PLAYER_LINK = "playerLink";
+	
 	private MusicPlayer mp;
 	private SeekBar progress;
-	private String sourceLink;
+	private String playerLink;
 	private String mp3Link;
 	
 	private DownloadLinkTask task;
@@ -33,12 +35,12 @@ public class Mp3playerActivity extends SherlockActivity implements Observer, Hos
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.main);
-        sourceLink = getIntent().getStringExtra("link");
+        playerLink = getIntent().getStringExtra(PLAYER_LINK);
         progress = (SeekBar) findViewById(R.id.progress);
         mp = new MusicPlayer();
         mp.addObserver(this);
         task = new DownloadLinkTask();
-        task.execute(sourceLink);
+        task.execute(playerLink);
     }
 
 	@Override

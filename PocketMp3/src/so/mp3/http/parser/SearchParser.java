@@ -65,7 +65,7 @@ public class SearchParser extends SougouParser {
 		m.setTitle(getTitle(s));
 		m.setSinger(getSinger(s));
 		m.setAlbum(getAlbum(s));
-		m.setLink(getLink(s));
+		m.setPlayerLink(getLink(s));
 		m.setSize(getSize(s));
 		Log.d("longer", m.toString());
 		return m;

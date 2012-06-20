@@ -36,7 +36,7 @@ public class IndexActivity extends SherlockFragmentActivity implements OnSongSel
 	@Override
 	public void onSongSelected(List<Mp3> songs, int position) {
 		Intent i = new Intent(getApplicationContext(), Mp3playerActivity.class);
-		i.putExtra("link", songs.get(position).getLink());
+		i.putExtra(Mp3playerActivity.PLAYER_LINK, songs.get(position).getPlayerLink());
 		startActivity(i);
 	}
 
