@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.util.Log;
-
 public class NetworkUtil {
 	
 	public static String getResult(String urlStr, String parameters) {

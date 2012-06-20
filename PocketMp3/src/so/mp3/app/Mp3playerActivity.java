@@ -5,30 +5,40 @@ import java.util.Observer;
 
 import so.mp3.http.SougouClient;
 import so.mp3.http.parser.DownloadLinkParser;
-import so.mp3.http.parser.SearchParser;
 import so.mp3.http.request.DownloadLinkRequest;
-import so.mp3.http.request.SearchRequest;
-import so.mp3.http.response.SearchResponse;
+import so.mp3.http.response.DownloadLinkResponse;
 import so.mp3.player.R;
-import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
-public class Mp3playerActivity extends Activity implements Observer {
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Window;
+
+public class Mp3playerActivity extends SherlockActivity implements Observer, Host {
     /** Called when the activity is first created. */
 	private MusicPlayer mp;
 	private SeekBar progress;
+	private String sourceLink;
+	private String mp3Link;
+	
+	private DownloadLinkTask task;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.main);
+        sourceLink = getIntent().getStringExtra("link");
         progress = (SeekBar) findViewById(R.id.progress);
         mp = new MusicPlayer();
         mp.addObserver(this);
-        
-        test();
+        task = new DownloadLinkTask();
+        task.execute(sourceLink);
     }
 
 	@Override
@@ -40,7 +50,9 @@ public class Mp3playerActivity extends Activity implements Observer {
 	public void clickHandler(View v) {
     	switch(v.getId()) {
     	case R.id.play:
-    		mp.play("http://slides.sitewelder.com/users/edwinwilliams1357/audio/adele%20-%20chasing%20pavements.mp3");
+    		if(!TextUtils.isEmpty(mp3Link)) {
+    			mp.play(mp3Link);
+    		}
     		break;
     	case R.id.stop:
     		mp.stop();
@@ -55,10 +67,6 @@ public class Mp3playerActivity extends Activity implements Observer {
     	}
     }
     
-    private void resetProgress(SeekBar progress) {
-    	progress.setProgress(0);
-    }
-    
     private void updateProgress(SeekBar progress, int current, int bufferPercent, int duration) {
     	progress.setSecondaryProgress(bufferPercent);
         int currentPercent = progress.getMax() * current / duration;
@@ -71,24 +79,48 @@ public class Mp3playerActivity extends Activity implements Observer {
 		updateProgress(progress, b.getInt("current"), b.getInt("bufferPercent"), b.getInt("duration"));
 	}
 	 
-    private void test() {
-		new Thread() {
+	private class DownloadLinkTask extends AsyncTask<String, Void, DownloadLinkResponse> {
 
-			@Override
-			public void run() {
-				SearchRequest sr = new SearchRequest();
-				sr.setQuery("王力宏");
-				SougouClient sc = new SougouClient();
-				SearchResponse resp = (SearchResponse) sc.excute(sr, new SearchParser());
-				
-				DownloadLinkRequest dlr = new DownloadLinkRequest();
-				dlr.setLink(resp.getMp3s().get(0).getLink());
-				sc.excute(dlr, new DownloadLinkParser());
-				
+		@Override
+		protected void onPreExecute() {
+			showIndeterminateProgressBar();
+		}
+
+		@Override
+		protected DownloadLinkResponse doInBackground(String... params) {
+			SougouClient sc = new SougouClient();
+			DownloadLinkRequest dlr = new DownloadLinkRequest();
+			dlr.setLink(params[0]);
+			DownloadLinkResponse resp = (DownloadLinkResponse) sc.excute(dlr, new DownloadLinkParser());
+			return resp;
+		}
+		
+		@Override
+		protected void onPostExecute(DownloadLinkResponse result) {
+			hideIndeterminateProgressBar();
+			if(result.isNetworkException()) {
+				Toast.makeText(getApplicationContext(), R.string.network_wonky, Toast.LENGTH_LONG).show();
+			} else {
+				if(TextUtils.isEmpty(result.getLink())) {
+					Toast.makeText(getApplicationContext(), R.string.search_result_empty, Toast.LENGTH_LONG).show();
+				} else {
+					mp3Link = result.getLink();
+					mp.play(mp3Link);
+				}
 			}
-			
-			
-		}.start();
+		}
+		
+	}
+	
+
+    @Override
+	public void showIndeterminateProgressBar() {
+		setSupportProgressBarIndeterminateVisibility(true);
+	}
+
+	@Override
+	public void hideIndeterminateProgressBar() {
+		setSupportProgressBarIndeterminateVisibility(false);
 	}
     
 }

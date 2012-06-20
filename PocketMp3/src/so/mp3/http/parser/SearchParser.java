@@ -11,6 +11,7 @@ import so.mp3.http.SougouResponse;
 import so.mp3.http.response.SearchResponse;
 import so.mp3.type.Mp3;
 import so.mp3.util.StringUtils;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class SearchParser extends SougouParser {
@@ -19,13 +20,18 @@ public class SearchParser extends SougouParser {
 	
 	@Override
 	public SougouResponse parse(String source) {//TODO 解析错误处理
-		List<String> trs = getRawMp3InTr(StringUtils.replaceLine(source));
-		List<Mp3> mp3s = new ArrayList<Mp3>();
-		for(String s : trs) {
+		if(!TextUtils.isEmpty(source)) {
+			List<String> trs = getRawMp3InTr(StringUtils.replaceLine(source));
+			List<Mp3> mp3s = new ArrayList<Mp3>();
+			for(String s : trs) {
 //			Log.d("longer", s);
-			mp3s.add(buildMp3(s));
+				mp3s.add(buildMp3(s));
+			}
+			resp.setMp3s(mp3s);
+			resp.setNetworkException(false);
+		} else {
+			resp.setNetworkException(true);
 		}
-		resp.setMp3s(mp3s);
 		return resp;
 	}
 	
