@@ -1,6 +1,5 @@
 package so.mp3.app.fragment;
 
-import java.io.File;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -31,7 +30,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -334,7 +332,7 @@ public class Mp3ListFragment extends SherlockFragment implements Observer {
 		progress.setProgress(0);
 	}
 	
-	private void download(Mp3 mp3) {
+	private void download(Mp3 mp3) {//TODO 存到自定义的文件夹
 		Request request = new Request(Uri.parse(mp3.getMp3Link()));
 		request.setTitle(mp3.getTitle())
         .setDescription(mp3.getSinger() + "/" + mp3.getAlbum())
@@ -375,23 +373,41 @@ public class Mp3ListFragment extends SherlockFragment implements Observer {
                 long downloadId = intent.getLongExtra(
                         DownloadManager.EXTRA_DOWNLOAD_ID, 0);
                 Query query = new Query();
-                query.setFilterById(enqueue);
+                query.setFilterById(downloadId);
                 Cursor c = dm.query(query);
                 if (c.moveToFirst()) {
-                    int columnIndex = c
-                            .getColumnIndex(DownloadManager.COLUMN_STATUS);
-                    if (DownloadManager.STATUS_SUCCESSFUL == c
-                            .getInt(columnIndex)) {
-                        String uriString = c
-                                .getString(c
-                                        .getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                        Log.d("longer", uriString);
-                    }
+                    Toast.makeText(getActivity(), statusMessage(c), Toast.LENGTH_LONG).show();
                 }
             }
         }
         
-        public void showDownload() {
+        private String statusMessage(Cursor c) {//TODO 给予更详细的提示
+            String msg="???";
+            switch(c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
+              case DownloadManager.STATUS_FAILED:
+                msg="Download failed!" + c.getColumnIndex(DownloadManager.COLUMN_REASON);
+                break;
+              case DownloadManager.STATUS_PAUSED:
+                msg="Download paused!" + c.getColumnIndex(DownloadManager.COLUMN_REASON);
+                break;
+              case DownloadManager.STATUS_PENDING:
+                msg="Download pending!" + c.getColumnIndex(DownloadManager.COLUMN_REASON);
+                break;
+              case DownloadManager.STATUS_RUNNING:
+                msg="Download in progress!" + c.getColumnIndex(DownloadManager.COLUMN_REASON);
+                break;
+              case DownloadManager.STATUS_SUCCESSFUL:
+                msg="Download complete!" + c.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME);
+                break;
+              default:
+                msg="Download is nowhere in sight";
+                break;
+            }
+            
+            return(msg);
+          }
+        
+        private void showDownload() {
             Intent i = new Intent();
             i.setAction(DownloadManager.ACTION_VIEW_DOWNLOADS);
             startActivity(i);
