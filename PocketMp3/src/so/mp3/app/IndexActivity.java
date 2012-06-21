@@ -2,8 +2,8 @@ package so.mp3.app;
 
 import java.util.List;
 
-import so.mp3.app.fragment.SearchResultListFragment;
-import so.mp3.app.fragment.SearchResultListFragment.OnSongSelectedListener;
+import so.mp3.app.fragment.Mp3ListFragment;
+import so.mp3.app.fragment.Mp3ListFragment.OnSongSelectedListener;
 import so.mp3.type.Mp3;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ public class IndexActivity extends SherlockFragmentActivity implements OnSongSel
 		super.onCreate(bundle);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		hideIndeterminateProgressBar();
-		SearchResultListFragment content = SearchResultListFragment.newInstance();
+		Mp3ListFragment content = Mp3ListFragment.newInstance();
         getSupportFragmentManager().beginTransaction().add(
         android.R.id.content, content).commit();
 	}
@@ -35,9 +35,10 @@ public class IndexActivity extends SherlockFragmentActivity implements OnSongSel
 
 	@Override
 	public void onSongSelected(List<Mp3> songs, int position) {
-		Intent i = new Intent(getApplicationContext(), Mp3playerActivity.class);
-		i.putExtra(Mp3playerActivity.PLAYER_LINK, songs.get(position).getPlayerLink());
-		startActivity(i);
+//		Intent i = new Intent(getApplicationContext(), Mp3playerActivity.class);
+//		i.putExtra(Mp3playerActivity.PLAYER_LINK, songs.get(position).getPlayerLink());
+//		startActivity(i);
+		//do nonthing
 	}
 
 }

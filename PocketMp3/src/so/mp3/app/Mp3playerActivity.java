@@ -11,7 +11,6 @@ import so.mp3.player.R;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Toast;

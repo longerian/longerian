@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:padding="8dip"
+    android:padding="4dip"
     >
     <TextView 
         android:id="@+id/no"
@@ -29,7 +29,7 @@
 	    android:layout_toRightOf="@+id/title"
 	    android:gravity="center_vertical"
 	    android:textColor="#ff000000"
-	    android:text=" - "
+	    android:text="-"
         />
     <TextView
         android:id="@+id/singer"
