@@ -12,14 +12,13 @@ import so.mp3.http.response.SearchResponse;
 import so.mp3.type.Mp3;
 import so.mp3.util.StringUtils;
 import android.text.TextUtils;
-import android.util.Log;
 
 public class SearchParser extends SougouParser {
 
 	private SearchResponse resp = new SearchResponse();
 	
 	@Override
-	public SougouResponse parse(String source) {//TODO 解析错误处理
+	public SougouResponse parse(String source) {
 		if(!TextUtils.isEmpty(source)) {
 			List<String> trs = getRawMp3InTr(StringUtils.replaceLine(source));
 			List<Mp3> mp3s = new ArrayList<Mp3>();
@@ -67,7 +66,7 @@ public class SearchParser extends SougouParser {
 		m.setAlbum(getAlbum(s));
 		m.setPlayerLink(getLink(s));
 		m.setSize(getSize(s));
-		Log.d("longer", m.toString());
+//		Log.d("longer", m.toString());
 		return m;
 	}
 

@@ -16,7 +16,7 @@ public class DownloadLinkParser extends SougouParser {
 	private DownloadLinkResponse resp = new DownloadLinkResponse();
 	
 	@Override
-	public SougouResponse parse(String source) {//TODO 解析错误处理
+	public SougouResponse parse(String source) {
 		if(!TextUtils.isEmpty(source)) {
 			String link = getLink(StringUtils.replaceLine(source));
 			resp.setLink(link);
