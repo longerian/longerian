@@ -9,44 +9,112 @@ import com.google.flatbuffers.*;
 
 @SuppressWarnings("unused")
 public final class Person extends Table {
-  public static Person getRootAsPerson(ByteBuffer _bb) { return getRootAsPerson(_bb, new Person()); }
-  public static Person getRootAsPerson(ByteBuffer _bb, Person obj) { _bb.order(ByteOrder.LITTLE_ENDIAN); return (obj.__assign(_bb.getInt(_bb.position()) + _bb.position(), _bb)); }
-  public void __init(int _i, ByteBuffer _bb) { bb_pos = _i; bb = _bb; }
-  public Person __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+    public static Person getRootAsPerson(ByteBuffer _bb) {
+        return getRootAsPerson(_bb, new Person());
+    }
 
-  public String name() { int o = __offset(4); return o != 0 ? __string(o + bb_pos) : null; }
-  public ByteBuffer nameAsByteBuffer() { return __vector_as_bytebuffer(4, 1); }
-  public int friendshipStatus() { int o = __offset(6); return o != 0 ? bb.getInt(o + bb_pos) : 1; }
-  public Person spouse() { return spouse(new Person()); }
-  public Person spouse(Person obj) { int o = __offset(8); return o != 0 ? obj.__assign(__indirect(o + bb_pos), bb) : null; }
-  public Person friends(int j) { return friends(new Person(), j); }
-  public Person friends(Person obj, int j) { int o = __offset(10); return o != 0 ? obj.__assign(__indirect(__vector(o) + j * 4), bb) : null; }
-  public int friendsLength() { int o = __offset(10); return o != 0 ? __vector_len(o) : 0; }
+    public static Person getRootAsPerson(ByteBuffer _bb, Person obj) {
+        _bb.order(ByteOrder.LITTLE_ENDIAN);
+        return (obj.__assign(_bb.getInt(_bb.position()) + _bb.position(), _bb));
+    }
 
-  public static int createPerson(FlatBufferBuilder builder,
-      int nameOffset,
-      int friendshipStatus,
-      int spouseOffset,
-      int friendsOffset) {
-    builder.startObject(4);
-    Person.addFriends(builder, friendsOffset);
-    Person.addSpouse(builder, spouseOffset);
-    Person.addFriendshipStatus(builder, friendshipStatus);
-    Person.addName(builder, nameOffset);
-    return Person.endPerson(builder);
-  }
+    public void __init(int _i, ByteBuffer _bb) {
+        bb_pos = _i;
+        bb = _bb;
+    }
 
-  public static void startPerson(FlatBufferBuilder builder) { builder.startObject(4); }
-  public static void addName(FlatBufferBuilder builder, int nameOffset) { builder.addOffset(0, nameOffset, 0); }
-  public static void addFriendshipStatus(FlatBufferBuilder builder, int friendshipStatus) { builder.addInt(1, friendshipStatus, 1); }
-  public static void addSpouse(FlatBufferBuilder builder, int spouseOffset) { builder.addOffset(2, spouseOffset, 0); }
-  public static void addFriends(FlatBufferBuilder builder, int friendsOffset) { builder.addOffset(3, friendsOffset, 0); }
-  public static int createFriendsVector(FlatBufferBuilder builder, int[] data) { builder.startVector(4, data.length, 4); for (int i = data.length - 1; i >= 0; i--) builder.addOffset(data[i]); return builder.endVector(); }
-  public static void startFriendsVector(FlatBufferBuilder builder, int numElems) { builder.startVector(4, numElems, 4); }
-  public static int endPerson(FlatBufferBuilder builder) {
-    int o = builder.endObject();
-    return o;
-  }
-  public static void finishPersonBuffer(FlatBufferBuilder builder, int offset) { builder.finish(offset); }
+    public Person __assign(int _i, ByteBuffer _bb) {
+        __init(_i, _bb);
+        return this;
+    }
+
+    public String name() {
+        int o = __offset(4);
+        return o != 0 ? __string(o + bb_pos) : null;
+    }
+
+    public ByteBuffer nameAsByteBuffer() {
+        return __vector_as_bytebuffer(4, 1);
+    }
+
+    public int friendshipStatus() {
+        int o = __offset(6);
+        return o != 0 ? bb.getInt(o + bb_pos) : 1;
+    }
+
+    public Person spouse() {
+        return spouse(new Person());
+    }
+
+    public Person spouse(Person obj) {
+        int o = __offset(8);
+        return o != 0 ? obj.__assign(__indirect(o + bb_pos), bb) : null;
+    }
+
+    public Person friends(int j) {
+        return friends(new Person(), j);
+    }
+
+    public Person friends(Person obj, int j) {
+        int o = __offset(10);
+        return o != 0 ? obj.__assign(__indirect(__vector(o) + j * 4), bb) : null;
+    }
+
+    public int friendsLength() {
+        int o = __offset(10);
+        return o != 0 ? __vector_len(o) : 0;
+    }
+
+    public static int createPerson(FlatBufferBuilder builder,
+                                   int nameOffset,
+                                   int friendshipStatus,
+                                   int spouseOffset,
+                                   int friendsOffset) {
+        builder.startObject(4);
+        Person.addFriends(builder, friendsOffset);
+        Person.addSpouse(builder, spouseOffset);
+        Person.addFriendshipStatus(builder, friendshipStatus);
+        Person.addName(builder, nameOffset);
+        return Person.endPerson(builder);
+    }
+
+    public static void startPerson(FlatBufferBuilder builder) {
+        builder.startObject(4);
+    }
+
+    public static void addName(FlatBufferBuilder builder, int nameOffset) {
+        builder.addOffset(0, nameOffset, 0);
+    }
+
+    public static void addFriendshipStatus(FlatBufferBuilder builder, int friendshipStatus) {
+        builder.addInt(1, friendshipStatus, 1);
+    }
+
+    public static void addSpouse(FlatBufferBuilder builder, int spouseOffset) {
+        builder.addOffset(2, spouseOffset, 0);
+    }
+
+    public static void addFriends(FlatBufferBuilder builder, int friendsOffset) {
+        builder.addOffset(3, friendsOffset, 0);
+    }
+
+    public static int createFriendsVector(FlatBufferBuilder builder, int[] data) {
+        builder.startVector(4, data.length, 4);
+        for (int i = data.length - 1; i >= 0; i--) builder.addOffset(data[i]);
+        return builder.endVector();
+    }
+
+    public static void startFriendsVector(FlatBufferBuilder builder, int numElems) {
+        builder.startVector(4, numElems, 4);
+    }
+
+    public static int endPerson(FlatBufferBuilder builder) {
+        int o = builder.endObject();
+        return o;
+    }
+
+    public static void finishPersonBuffer(FlatBufferBuilder builder, int offset) {
+        builder.finish(offset);
+    }
 }
 
