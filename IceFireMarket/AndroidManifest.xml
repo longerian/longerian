@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cc.icefire.market"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <!-- Allows access to the Download Manager -->
+    <permission
+        android:name="cc.icefire.permission.ACCESS_DOWNLOAD_MANAGER"
+        android:description="@string/permdesc_downloadManager"
+        android:label="@string/permlab_downloadManager"
+        android:protectionLevel="normal" />
+
+    <!-- Allows advanced access to the Download Manager -->
+    <permission
+        android:name="cc.icefire.permission.ACCESS_DOWNLOAD_MANAGER_ADVANCED"
+        android:description="@string/permdesc_downloadManagerAdvanced"
+        android:label="@string/permlab_downloadManagerAdvanced"
+        android:protectionLevel="normal" />
+
+    <!-- Allows to send broadcasts on download completion -->
+    <permission
+        android:name="cc.icefire.permission.SEND_DOWNLOAD_COMPLETED_INTENTS"
+        android:description="@string/permdesc_downloadCompletedIntent"
+        android:label="@string/permlab_downloadCompletedIntent"
+        android:protectionLevel="normal" />
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="cc.icefire.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="cc.icefire.permission.ACCESS_DOWNLOAD_MANAGER_ADVANCED" />
+
+    <application
+        android:name="cc.icefire.market.IceFireApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        <activity
+            android:name="cc.icefire.market.activity.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cc.icefire.market.activity.AppDetailActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name="cc.icefire.market.activity.IndexActivity"
+            android:label="@string/app_name"
+            android:theme="@style/StyledIndicators" />
+        <activity
+            android:name="cc.icefire.market.activity.AppListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/StyledIndicators" />
+        <activity
+            android:name="cc.icefire.market.activity.GameListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/StyledIndicators" />
+        <activity
+            android:name="cc.icefire.market.activity.CategoryActivity"
+            android:label="@string/app_name"
+            android:theme="@style/StyledIndicators" />
+        <activity
+            android:name="cc.icefire.market.activity.SearchActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="cc.icefire.market.activity.CategoryAppListActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name="cc.icefire.market.activity.ManagementActivity"
+            android:label="@string/app_name"
+            android:theme="@style/StyledIndicators" />
+
+        <receiver
+            android:name="cc.icefire.market.localapk.AppChangeEventReceiver"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="cc.icefire.market.localapk.BootBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="cc.icefire.providers.downloads.DownloadService" />
+
+        <receiver
+            android:name="cc.icefire.providers.downloads.DownloadReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="cc.icefire.providers.downloads.DownloadProvider"
+            android:authorities="cc.icefire.downloads" />
+        
+        <activity android:name="cc.icefire.market.activity.DownloadListActivity" >
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <me.longerian.abcandroid.indexview.CalendarView
+            android:id="@+id/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#88ff1111" />
+
+    <me.longerian.abcandroid.indexview.IndexView
+            android:id="@+id/index"
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            app:startIndexColor="#FF8810"
+            app:endIndexColor="#FF0000"
+            android:background="#BEBEBE"
+            app:index="75"
+    />
+
+    <me.longerian.abcandroid.indexview.HoleView
+            android:id="@+id/hole"
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            app:startIndexColor="#FF8810"
+            app:endIndexColor="#FF0000"
+            android:background="#BEBEBE"
+            app:index="75"
+    />
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+        <me.longerian.abcandroid.indexview.MaskView
+                android:id="@+id/image1"
+                android:layout_width="150dp" android:layout_height="150dp"
+                android:src="@drawable/img1url"
+                android:layout_weight="1"
+                android:contentDescription="test"
+        />
+        <!--<me.longerian.abcandroid.indexview.MaskView android:layout_width="150dp"-->
+        <!--android:layout_height="150dp"-->
+        <!--/>-->
+        <ImageView
+                android:id="@+id/image2"
+                android:layout_width="150dp" android:layout_height="150dp"
+                android:src="@drawable/img1url"
+                android:layout_toRightOf="@+id/image1"
+                android:layout_weight="1"
+        />
+    </RelativeLayout>
+    <me.longerian.abcandroid.indexview.DotView android:layout_width="10dip"
+                                               android:layout_height="10dip"/>
+
+    <me.longerian.abcandroid.indexview.TimerView
+            android:id="@+id/tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:background="#FF481E"
+    />
+
+</LinearLayout>

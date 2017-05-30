@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="so.mp3.player"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="5" android:targetSdkVersion="16"/>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+	    
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Sherlock" >
+        <activity
+            android:name="so.mp3.app.IndexActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="so.mp3.app.IndexActivity.index" />
+				<category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <service 
+            android:name="so.mp3.app.downloader.DownloadService"
+            android:label="@string/app_name" 
+            android:exported="false" >
+        </service>
+        <service 
+            android:name="so.mp3.app.player.LocalTrackPlayer"
+            android:label="@string/app_name"
+            android:exported="false" >
+        </service>
+        <service 
+            android:name="so.mp3.app.player.OnlineTrackPlayer"
+            android:label="@string/app_name"
+            android:exported="false" >
+        </service>
+    </application>
+
+</manifest>

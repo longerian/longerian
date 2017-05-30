@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="@dimen/view_padding_magin"
+    >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/view_app_icon_size"
+        android:layout_height="@dimen/view_app_icon_size"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_android"
+        />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/icon"
+        android:layout_marginLeft="@dimen/view_padding_magin"
+        android:layout_marginRight="@dimen/view_padding_magin"
+        android:layout_toRightOf="@+id/icon"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_title" />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/icon"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/text_size_title" />
+
+    <TextView
+        android:id="@+id/size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/version"
+        android:layout_marginLeft="@dimen/view_padding_magin"
+        android:layout_marginRight="@dimen/view_padding_magin"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/text_size_title" />
+
+    <TextView 
+        android:id="@+id/uninstall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="@string/uninstall"
+        android:background="@android:drawable/btn_default"
+        />
+
+</RelativeLayout>

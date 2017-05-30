@@ -1,0 +1,23 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+    >
+	<GridView 
+	    android:id="@+id/shortcuts"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:numColumns="4"
+	    android:verticalSpacing="20dip"
+	    />
+    <ProgressBar 
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:max="100" 
+		android:progress="50" 
+		android:secondaryProgress="70" 
+	    android:visibility="invisible"
+        />
+</FrameLayout>
