@@ -1,8 +1,11 @@
 package me.longerian.abcandroid.recycle;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -53,6 +56,7 @@ public class RecycleViewTestActivity extends Activity {
         mDelete.setOnClickListener(mAction);
         mMove = (Button) findViewById(R.id.move);
         mMove.setOnClickListener(mAction);
+        mRecyclerView.setChildDrawingOrderCallback(new SimpleChildDrawingOrder());
     }
 
     private View.OnClickListener mAction = new View.OnClickListener() {
@@ -118,10 +122,27 @@ public class RecycleViewTestActivity extends Activity {
             int viewType = getItemViewType(positoin);
             if (viewType == ITEM_TYPE.TEXT.ordinal()) {
                 SimpleViewHolder svh = (SimpleViewHolder) simpleViewHolder;
+                if (positoin % 2 == 0) {
+                    svh.itemView.setBackgroundColor(Color.WHITE);
+                } else {
+                    svh.itemView.setBackgroundColor(Color.LTGRAY);
+                }
                 svh.mTextView.setText(mData.get(positoin));
                 svh.itemView.setTag(mData.get(positoin)
                         + " layout position " + simpleViewHolder.getLayoutPosition()
                         + " adapter position " + simpleViewHolder.getAdapterPosition());
+
+                svh.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (hasFocus) {
+                            ViewCompat.animate(v).scaleX(1.17f).scaleY(1.17f).start();
+                            ViewGroup parent = (ViewGroup) v.getParent();
+                            parent.requestLayout();
+                            parent.invalidate();
+                        }
+                    }
+                });
             } else if (viewType == ITEM_TYPE.IMAGE.ordinal()) {
                 ImageViewHolder ivh = (ImageViewHolder) simpleViewHolder;
                 ivh.mImageView.setImageURI(Uri.parse(mData.get(positoin)));
@@ -174,6 +195,28 @@ public class RecycleViewTestActivity extends Activity {
             }
         }
 
+    }
+
+    private class SimpleChildDrawingOrder implements RecyclerView.ChildDrawingOrderCallback {
+
+        int focusid;
+
+        @Override
+        public int onGetChildDrawingOrder(int childCount, int i) {
+            View focusedChild = mRecyclerView.getFocusedChild();
+            int focusViewIndex = mRecyclerView.indexOfChild(focusedChild);
+            if (focusViewIndex == -1) {
+                return i;
+            }
+            if (focusViewIndex == i) {
+                focusid = i;
+                return childCount - 1;
+            } else if (i == childCount - 1) {
+                return focusid;
+            } else {
+                return i;
+            }
+        }
     }
 
     private class SimpleViewHolder extends RecyclerView.ViewHolder {

@@ -5,6 +5,21 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <FrameLayout android:layout_width="match_parent" android:layout_height="100dp">
+        <TextView android:layout_width="50dp" android:layout_height="50dp" android:text="1" android:gravity="center"
+                  android:background="@android:color/holo_red_light"/>
+        <TextView android:layout_width="50dp" android:layout_height="50dp" android:text="2" android:gravity="center"
+                  android:background="@android:color/holo_green_light" android:layout_marginLeft="40dp" android:translationZ="99dp"/>
+        <TextView android:layout_width="50dp" android:layout_height="50dp" android:text="3" android:gravity="center"
+                  android:background="@android:color/holo_blue_light" android:layout_marginLeft="80dp" android:translationZ="1dp"/>
+        <TextView android:layout_width="50dp" android:layout_height="50dp" android:text="4" android:gravity="center"
+                  android:background="@android:color/holo_orange_light" android:layout_marginLeft="120dp"/>
+    </FrameLayout>
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@android:color/holo_red_dark">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="test"/>
+    </LinearLayout>
+
     <me.longerian.abcandroid.indexview.CalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
