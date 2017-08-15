@@ -24,6 +24,9 @@ public class IndexViewTest extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setBackgroundDrawable(null);
         setContentView(R.layout.activity_index_view);
+        OrderLayout orderLayout = (OrderLayout)findViewById(R.id.order_test);
+        orderLayout.setDrawOrder(2);
+
         final IndexView indexView = (IndexView) findViewById(R.id.index);
         indexView.setOnClickListener(new View.OnClickListener() {
             @Override
