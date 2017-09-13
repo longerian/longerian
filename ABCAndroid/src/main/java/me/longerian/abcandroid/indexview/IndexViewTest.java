@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
+import android.widget.TextView;
 import me.longerian.abcandroid.R;
 
 /**
@@ -26,6 +29,35 @@ public class IndexViewTest extends Activity {
         setContentView(R.layout.activity_index_view);
         OrderLayout orderLayout = (OrderLayout)findViewById(R.id.order_test);
         orderLayout.setDrawOrder(2);
+        TextView button1 = (TextView)findViewById(R.id.button1);
+        TextView button2 = (TextView)findViewById(R.id.button2);
+        TextView button3 = (TextView)findViewById(R.id.button3);
+        TextView button4 = (TextView)findViewById(R.id.button4);
+        button1.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Longer", "click 1");
+            }
+        });
+        button2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Longer", "click 2");
+            }
+        });
+        button3.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Longer", "click 3");
+            }
+        });
+        button4.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Longer", "click 4");
+            }
+        });
+
 
         final IndexView indexView = (IndexView) findViewById(R.id.index);
         indexView.setOnClickListener(new View.OnClickListener() {
