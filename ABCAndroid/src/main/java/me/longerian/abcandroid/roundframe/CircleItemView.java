@@ -64,6 +64,8 @@ public class CircleItemView extends View {
 
     public CircleItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        itemSize = getResources().getDimensionPixelSize(R.dimen.item_size);
+        itemOffset = getResources().getDimensionPixelSize(R.dimen.item_offset);
         for (int i = 0; i < 12; i++) {
             if (i == 1) {
                 items.add(((BitmapDrawable) (context.getResources().getDrawable(R.drawable.ic_launcher))).getBitmap());
@@ -105,6 +107,12 @@ public class CircleItemView extends View {
 
     public void startRotate() {
         ViewCompat.postOnAnimation(this, rotateAction);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        removeCallbacks(rotateAction);
     }
 
     @Override

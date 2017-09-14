@@ -21,4 +21,7 @@
     <dimen name="calendar_title_padding_top">7dip</dimen>
     <dimen name="calendar_grid_size">30dip</dimen>
     <dimen name="calendar_date_padding_left">12dip</dimen>
+
+    <dimen name="item_size">50dip</dimen>
+    <dimen name="item_offset">5dip</dimen>
 </resources>

@@ -39,11 +39,28 @@
         </android.support.v7.widget.CardView>
 
         <me.longerian.abcandroid.roundframe.CircleItemView
-                android:id="@+id/items"
+                android:id="@+id/cicle_items"
                 android:layout_width="200dip"
                 android:layout_height="200dip"
 
         />
+
+        <me.longerian.abcandroid.roundframe.CircleBubbleItemView
+                android:id="@+id/bubble_items"
+                android:layout_width="200dip"
+                android:layout_height="200dip"
+
+        />
+        <me.longerian.abcandroid.roundframe.RoundFrameLayout
+                android:layout_width="200dip" android:layout_height="200dip"
+                android:background="#00EEFF"
+        >
+            <me.longerian.abcandroid.roundframe.FallingItemView
+                    android:id="@+id/falling_items"
+                    android:layout_width="200dip"
+                    android:layout_height="200dip"/>
+        </me.longerian.abcandroid.roundframe.RoundFrameLayout>
+
     </LinearLayout>
 
 </ScrollView>
